@@ -7,11 +7,6 @@
 #include "Interface/ABGameInterface.h"
 #include "ABGameMode.generated.h"
 
-
-// 함수 호출 정보.
-#define LOG_CALLINFO ANSI_TO_TCHAR(__FUNCTION__)
-
-
 /**
  * 
  */

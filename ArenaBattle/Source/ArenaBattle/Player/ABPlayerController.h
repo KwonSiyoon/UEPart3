@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -20,6 +20,8 @@ public:
 	AABPlayerController();
 	
 protected:
+	virtual void PostInitializeComponents() override;
+	virtual void PostNetInit() override;
 	virtual void BeginPlay() override;
 	
 // HUD Section
