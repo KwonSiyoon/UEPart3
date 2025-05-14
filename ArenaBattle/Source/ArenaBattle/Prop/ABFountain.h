@@ -22,10 +22,14 @@ protected:
 	// 네트워크로 복제될 속성을 추가하기 위한 함수 오버라이딩.
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
-	// 액터 채널이 열릴 때 호출되는 함수.
-	virtual void OnActorChannelOpen(class FInBunch& InBunch, class UNetConnection* Connection) override;
+	//// 액터 채널이 열릴 때 호출되는 함수.
+	//virtual void OnActorChannelOpen(class FInBunch& InBunch, class UNetConnection* Connection) override;
 
-	virtual bool IsNetRelevantFor(const AActor* RealViewer, const AActor* ViewTarget, const FVector& SrcLocation) const override;
+	//// 연관성 판정을 진행할때 호출되는 함수.
+	//virtual bool IsNetRelevantFor(const AActor* RealViewer, const AActor* ViewTarget, const FVector& SrcLocation) const override;
+
+	//// 
+	//virtual void PreReplication(IRepChangedPropertyTracker& ChangedPropertyTracker) override;
 
 public:
 	// Called every frame
@@ -43,6 +47,18 @@ public:
 
 	UFUNCTION()
 	void OnRep_ServerLightColor();
+
+	// 모든 클라이언트에 조명 색상 변경을 요청할 때 사용할 멀티캐스트 RPC 함수.
+	UFUNCTION(NetMulticast, Unreliable)
+	void MulticastRPCChangeLightColor(const FLinearColor& NewLightColor);
+
+	// 클라이언트가 서버에 조명 색상 변경을 요청할 때 사용할 Server RPC 함수.
+	UFUNCTION(Server, Unreliable, WithValidation)
+	void ServerRPCChangeLightColor();
+
+	// Client RPC.
+	UFUNCTION(Client, Unreliable)
+	void ClientRPCChangeLightColor(const FLinearColor& NewLightColor);
 
 	// 리플리케이션 옵션 지정.
 	UPROPERTY(ReplicatedUsing = OnRep_ServerRotationYaw)
