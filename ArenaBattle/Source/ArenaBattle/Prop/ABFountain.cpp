@@ -220,7 +220,7 @@ void AABFountain::Tick(float DeltaTime)
 // 클라이언트.
 void AABFountain::OnRep_ServerRotationYaw()
 {
-	AB_LOG(LogABNetwork, Log, TEXT("Yaw: %f"), ServerRotationYaw);
+	//AB_LOG(LogABNetwork, Log, TEXT("Yaw: %f"), ServerRotationYaw);
 
 	// 변경된 회전 값을 반영해 새 회전값 생성.
 	FRotator NewRotator = RootComponent->GetComponentRotation();
