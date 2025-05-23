@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -8,6 +8,7 @@
 #include "Interface/ABCharacterWidgetInterface.h"
 #include "Interface/ABCharacterItemInterface.h"
 #include "GameData/ABCharacterStat.h"
+#include "Engine/StreamableManager.h"
 #include "ABCharacterBase.generated.h"
 
 DECLARE_LOG_CATEGORY_EXTERN(LogABCharacter, Log, All);
@@ -36,7 +37,7 @@ class ARENABATTLE_API AABCharacterBase : public ACharacter, public IABAnimationA
 
 public:
 	// Sets default values for this character's properties
-	AABCharacterBase();
+	AABCharacterBase(const FObjectInitializer& ObjectInitializer);
 
 	virtual void PostInitializeComponents() override;
 
@@ -112,4 +113,8 @@ public:
 	int32 GetLevel();
 	void SetLevel(int32 InNewLevel);
 	void ApplyStat(const FABCharacterStat& BaseStat, const FABCharacterStat& ModifierStat);
+
+	void MeshLoadCompleted();
+	TSharedPtr<FStreamableHandle> MeshHandle;
+
 };

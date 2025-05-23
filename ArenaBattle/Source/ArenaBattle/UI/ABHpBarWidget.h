@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -22,8 +22,8 @@ protected:
 	virtual void NativeConstruct() override;
 
 public:
-	void UpdateStat(const FABCharacterStat& BaseStat, const FABCharacterStat& ModifierStat);
-	void UpdateHpBar(float NewCurrentHp);
+	//void UpdateStat(const FABCharacterStat& BaseStat, const FABCharacterStat& ModifierStat);
+	void UpdateHpBar(float NewCurrentHp, float NewMaxHp);
 	FString GetHpStatText();
 
 protected:

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -17,19 +17,19 @@ class ARENABATTLE_API AABCharacterNonPlayer : public AABCharacterBase, public IA
 	GENERATED_BODY()
 	
 public:
-	AABCharacterNonPlayer();
+	AABCharacterNonPlayer(const FObjectInitializer& ObjectInitializer);
 
 protected:
 	virtual void PostInitializeComponents() override;
 
 protected:
 	void SetDead() override;
-	void NPCMeshLoadCompleted();
+	//void NPCMeshLoadCompleted();
 
 	UPROPERTY(config)
 	TArray<FSoftObjectPath> NPCMeshes;
 	
-	TSharedPtr<FStreamableHandle> NPCMeshHandle;
+	//TSharedPtr<FStreamableHandle> NPCMeshHandle;
 
 // AI Section
 protected:

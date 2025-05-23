@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "Item/ABItemBox.h"
@@ -44,6 +44,8 @@ void AABItemBox::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 
+	
+	/*// 기존 코드 주석 처리.
 	UAssetManager& Manager = UAssetManager::Get();
 
 	TArray<FPrimaryAssetId> Assets;
@@ -56,7 +58,27 @@ void AABItemBox::PostInitializeComponents()
 	{
 		AssetPtr.LoadSynchronous();
 	}
-	Item = Cast<UABItemData>(AssetPtr.Get());
+	Item = Cast<UABItemData>(AssetPtr.Get());*/
+
+	// 아이템이 설정되지 않은 경우에는 기존 방식대로
+	// 랜덤으로 선택. 설정되어 있으면 설정된 아이템을 사용.
+	if (!IsValid(Item))
+	{
+		UAssetManager& Manager = UAssetManager::Get();
+
+		TArray<FPrimaryAssetId> Assets;
+		Manager.GetPrimaryAssetIdList(TEXT("ABItemData"), Assets);
+		ensure(0 < Assets.Num());
+
+		int32 RandomIndex = FMath::RandRange(0, Assets.Num() - 1);
+		FSoftObjectPtr AssetPtr(Manager.GetPrimaryAssetPath(Assets[RandomIndex]));
+		if (AssetPtr.IsPending())
+		{
+			AssetPtr.LoadSynchronous();
+		}
+		Item = Cast<UABItemData>(AssetPtr.Get());
+	}
+
 	ensure(Item);
 
 	Trigger->OnComponentBeginOverlap.AddDynamic(this, &AABItemBox::OnOverlapBegin);
